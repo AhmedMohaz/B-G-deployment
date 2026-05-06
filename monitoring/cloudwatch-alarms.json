@@ -1,0 +1,46 @@
+{
+  "Alarms": [
+    {
+      "AlarmName": "Green-5xx-ErrorRate",
+      "AlarmDescription": "Triggers rollback if Green target group HTTP 5xx errors exceed threshold",
+      "Namespace": "AWS/ApplicationELB",
+      "MetricName": "HTTPCode_Target_5XX_Count",
+      "Dimensions": [{"Name": "TargetGroup", "Value": "targetgroup/green-tg/xxxx"}],
+      "Statistic": "Sum",
+      "Period": 60,
+      "EvaluationPeriods": 2,
+      "Threshold": 10,
+      "ComparisonOperator": "GreaterThanThreshold",
+      "TreatMissingData": "notBreaching",
+      "AlarmActions": ["arn:aws:sns:us-east-1:ACCOUNT_ID:rollback-alert"]
+    },
+    {
+      "AlarmName": "Green-HighLatency",
+      "AlarmDescription": "Fires if Green response time exceeds 2 seconds",
+      "Namespace": "AWS/ApplicationELB",
+      "MetricName": "TargetResponseTime",
+      "Dimensions": [{"Name": "TargetGroup", "Value": "targetgroup/green-tg/xxxx"}],
+      "Statistic": "Average",
+      "Period": 60,
+      "EvaluationPeriods": 3,
+      "Threshold": 2.0,
+      "ComparisonOperator": "GreaterThanThreshold",
+      "TreatMissingData": "notBreaching",
+      "AlarmActions": ["arn:aws:sns:us-east-1:ACCOUNT_ID:rollback-alert"]
+    },
+    {
+      "AlarmName": "Green-UnhealthyHosts",
+      "AlarmDescription": "Fires if any Green instance fails ALB health check",
+      "Namespace": "AWS/ApplicationELB",
+      "MetricName": "UnHealthyHostCount",
+      "Dimensions": [{"Name": "TargetGroup", "Value": "targetgroup/green-tg/xxxx"}],
+      "Statistic": "Maximum",
+      "Period": 60,
+      "EvaluationPeriods": 1,
+      "Threshold": 0,
+      "ComparisonOperator": "GreaterThanThreshold",
+      "TreatMissingData": "notBreaching",
+      "AlarmActions": ["arn:aws:sns:us-east-1:ACCOUNT_ID:rollback-alert"]
+    }
+  ]
+}
