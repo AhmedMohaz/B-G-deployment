@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 cat > README.md << 'EOF'
 # Blue-Green Deployment — Nairobi Telco Web Application
 
@@ -52,3 +53,4 @@ Restores 100% traffic to Blue in under 30 seconds.
 See `docs/rollback-plan.md` for full rollback procedure, trigger conditions, and post-rollback steps.
 
 ## Folder structure
+=======
